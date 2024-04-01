@@ -2,12 +2,14 @@ import '../css/Auth.css';
 import Logo from '../img/logo.jpg';
 import {  useAuth } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
   const { signUp } = useAuth();
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const handleRegister = ({name, email, password, confirmedPassword }) => {
+  const handleRegister = async ({name, email, password, confirmedPassword }) => {
     const userData = {
       name, 
       email,
@@ -17,7 +19,8 @@ function Register() {
 
     console.log("Objeto usuario: ", userData);
 
-    signUp(userData);
+    await signUp(userData);
+    navigate('/signin');
   };
 
   return (
@@ -61,7 +64,7 @@ function Register() {
               </div>
 
               <div className='row text-center'>
-                <small>Ya tienes una cuenta? <a href='#'>Inicia sesión</a></small>
+                <small>Ya tienes una cuenta? <Link to={'/signin'}>Inicia sesión</Link></small>
               </div>
             </div>
           </div>

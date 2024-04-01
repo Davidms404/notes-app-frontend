@@ -1,6 +1,6 @@
 import api from '../services/axiosConfig';
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { createContext, useContext, useState } from 'react';
 
 export const AuthContext = createContext();
@@ -20,10 +20,16 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async(data) => {
     try {
-      const response = await api.post('/auth/signup', data);
-      const { token } = response.data;
+      await api.post('/auth/signup', data);
+
+      message.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cuenta creada exitosamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });     
       
-      console.log('token: ', token);
     } catch (error) {
       const response = JSON.parse(error.request.response);
 
@@ -40,15 +46,15 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (data) => {
     try {
       const response = await api.post('/auth/signin', data);
-      const { token, name } = response.data;
+      const { token, _id, name } = response.data;
 
-      console.log('Sesión iniciada exitosamente, este es el token: ', token);
       localStorage.setItem('token', token);
+      localStorage.setItem('user', _id);
 
       message.fire({
         position: 'center',
         icon: 'success',
-        title: `Bienvenido, ${ name }!`,
+        title: `Welcome, ${ name }!`,
         showConfirmButton: false,
         timer: 2000
       });    
@@ -67,8 +73,27 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const logout = () => {
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+  
+      message.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Sesión cerrada exitosamente',
+        showConfirmButton: false,
+        timer: 2000
+      });
+
+      setToken(null);
+    } catch (error) {
+      console.log('Error al intentar cerrar sesión: ', error);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ token, signUp, signIn }}>
+    <AuthContext.Provider value={{ token, signUp, signIn, logout }}>
       {children}
     </AuthContext.Provider>
   );

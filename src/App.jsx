@@ -1,5 +1,6 @@
 import '../src/css/App.css';
 import Login from './components/Login.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 import Register from './components/Register.jsx';
 import TaskList from './components/TaskList.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
@@ -15,7 +16,7 @@ function App() {
             <Route path='/' element={ <Login /> } />
             <Route path='/signin' element={ <Login /> } />
             <Route path='/signup' element={ <Register /> } />
-            <Route path='/notes-app' element={ <TaskList /> } />
+            <Route path='/notes-app' element={ <PrivateRoute> <TaskList /> </PrivateRoute> } />
           </Routes>
         </BrowserRouter>
       </TasksProvider>

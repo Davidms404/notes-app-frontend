@@ -1,6 +1,15 @@
-.task-list{
+.task-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   justify-content: center;
   margin-top: 15px;
+}
+
+.notes-app-container {
+  display: flex;
+  min-height: 500px;
+  background-color: #d0d0d5;
+  padding: 25px;
+  margin: 10px;
+  border-radius: 26px;
 }

@@ -1,19 +1,23 @@
 import Logo from '../img/logo.jpg';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const { signIn } = useAuth();
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const handleLogin = ({ email, password }) => {
+  const handleLogin = async ({ email, password }) => {
     const userData = {
       email,
       password
     };
 
-    signIn(userData);
+    await signIn(userData);
+    navigate('/notes-app');
   }
+
   return (
     <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
       <div className='container d-flex justify-content-center align-items-center'>
@@ -47,7 +51,7 @@ function Login() {
               </div>
 
               <div className='row text-center'>
-                <small>No tienes una cuenta? <a href='#'>Regístrate</a></small>
+                <small>No tienes una cuenta? <Link to={'/signup'}>Regístrate</Link></small>
               </div>
             </div>
           </div>

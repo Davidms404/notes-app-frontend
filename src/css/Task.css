@@ -1,7 +1,8 @@
 .task-container {
-  width: 500px;
+  max-width: 500px;
   min-height: 65px;
   margin: 5px 0;
+  margin-top: 20px;
   padding: 8px 15px 8px 20px;
   display: flex;
   justify-content: space-between;
@@ -37,6 +38,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.icons {
+  display: flex;
 }
 
 .task-icon {
