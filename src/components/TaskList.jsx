@@ -4,7 +4,7 @@ import Task from './Task.jsx';
 import { useTasks } from '../context/TasksContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function TaskList() {
   const { logout } = useAuth();
